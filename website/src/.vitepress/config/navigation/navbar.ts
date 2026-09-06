@@ -7,6 +7,11 @@ const nav: DefaultTheme.NavItem[] = [
     activeMatch: "/downloads/",
   },
   {
+    text: "Showcase",
+    link: "/showcase/",
+    activeMatch: "/showcase/",
+  },
+  {
     text: "Docs",
     link: "/docs/guides/getting-started",
     activeMatch: "/docs/guides/",
