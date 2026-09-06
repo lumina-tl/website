@@ -37,11 +37,5 @@
       "permanent": true
     },
     { "source": "/docs/contribute", "destination": "/", "permanent": true }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/mdx/cover/:path*",
-      "destination": "/api/mdx/cover/:path*"
-    }
   ]
 }

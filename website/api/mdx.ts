@@ -172,38 +172,6 @@ export default async function handler(req: Request): Promise<Response> {
     return respondError("Method not allowed", 405);
   }
 
-  // Cover art proxy — /api/mdx/cover/<manga-id>/<fileName>
-  const url = new URL(req.url);
-  const parts = url.pathname.split("/").filter(Boolean);
-  if (parts[0] === "api" && parts[1] === "mdx" && parts[2] === "cover") {
-    const mangaId = parts[3];
-    const fileName = parts.slice(4).join("/");
-    if (!mangaId || !fileName) {
-      return respondError("Missing cover path", 400);
-    }
-    const coverUrl = `https://uploads.mangadex.org/covers/${mangaId}/${fileName}`;
-    const upstream = await fetch(coverUrl, {
-      headers: { Accept: "image/avif,image/webp,image/*,*/*;q=0.8" },
-    });
-    if (!upstream.ok) {
-      return respondError("Cover not found", upstream.status);
-    }
-    const headers = new Headers(upstream.headers);
-    headers.set(
-      "Content-Type",
-      upstream.headers.get("Content-Type") ?? "image/jpeg",
-    );
-    headers.set(
-      "Cache-Control",
-      "public, max-age=86400, s-maxage=86400, immutable",
-    );
-    headers.set("Access-Control-Allow-Origin", "*");
-    return new Response(upstream.body, {
-      status: upstream.status,
-      headers,
-    });
-  }
-
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15_000);
   try {
