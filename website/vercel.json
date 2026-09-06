@@ -1,0 +1,41 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/(.*)\\.(webp|webm|png|jpg|svg|ico)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=15552000"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    { "source": "/download/", "destination": "/downloads/", "permanent": true },
+    { "source": "/download", "destination": "/downloads/", "permanent": true },
+    {
+      "source": "/changelog/",
+      "destination": "/changelogs/",
+      "permanent": true
+    },
+    {
+      "source": "/changelog",
+      "destination": "/changelogs/",
+      "permanent": true
+    },
+    {
+      "source": "/faq/",
+      "destination": "/docs/faq/general",
+      "permanent": true
+    },
+    {
+      "source": "/help/",
+      "destination": "/docs/faq/general",
+      "permanent": true
+    },
+    { "source": "/docs/contribute", "destination": "/", "permanent": true }
+  ]
+}
