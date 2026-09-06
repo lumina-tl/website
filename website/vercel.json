@@ -11,15 +11,6 @@
           "value": "public, max-age=15552000"
         }
       ]
-    },
-    {
-      "source": "/api/mdx/cover/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, s-maxage=86400, immutable"
-        }
-      ]
     }
   ],
   "redirects": [
@@ -46,11 +37,5 @@
       "permanent": true
     },
     { "source": "/docs/contribute", "destination": "/", "permanent": true }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/mdx/cover/:path*",
-      "destination": "https://uploads.mangadex.org/covers/:path*"
-    }
   ]
 }
