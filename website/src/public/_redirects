@@ -1,0 +1,8 @@
+# Requested URL -> Redirected URL -> HTTP Code
+/download/                           /downloads/    301
+/download                            /downloads/    301
+/changelog/                          /changelogs/   301
+/changelog                           /changelogs/   301
+/faq/                                /docs/faq/general     301
+/help/                               /docs/faq/general     301
+/docs/contribute                     /                    301
