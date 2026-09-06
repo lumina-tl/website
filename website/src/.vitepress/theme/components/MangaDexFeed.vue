@@ -2,39 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 const GROUP_ID = "c3b19e53-56eb-47a0-8e0c-880e1b91847d";
-const API = "https://api.mangadex.org";
 const GROUP_URL = `https://mangadex.org/group/${GROUP_ID}`;
-const CHUNK = 100;
-const MAX_PAGES = 20;
-
-interface ChapterAttributes {
-  volume: string | null;
-  chapter: string | null;
-  title: string | null;
-  translatedLanguage: string;
-  externalUrl?: string | null;
-  publishAt: string;
-}
-
-interface Relationship {
-  id: string;
-  type: string;
-  attributes?: Record<string, unknown> | null;
-}
-
-interface ChapterData {
-  id: string;
-  attributes: ChapterAttributes;
-  relationships: Relationship[];
-}
-
-interface MangaData {
-  id: string;
-  attributes: {
-    title?: Record<string, string>;
-  };
-  relationships: Relationship[];
-}
 
 interface ChapterItem {
   id: string;
@@ -48,7 +16,6 @@ interface ShowManga {
   id: string;
   title: string;
   coverUrl: string | null;
-  latestAt: string;
   chapters: ChapterItem[];
 }
 
@@ -61,96 +28,6 @@ const open = ref<Record<string, boolean>>({});
 const failedCovers = ref<Record<string, boolean>>({});
 let controller: AbortController | null = null;
 
-function pickTitle(title?: Record<string, string>): string {
-  if (!title) return "Unknown title";
-  const preferred = ["en", "id", "ja", "ko", "zh"];
-  for (const key of preferred) {
-    if (title[key]) return title[key];
-  }
-  const first = Object.values(title)[0];
-  return first ?? "Unknown title";
-}
-
-function coverUrl(manga: MangaData): string | null {
-  const cover = manga.relationships.find(
-    (r) => r.type === "cover_art" && r.attributes?.fileName,
-  );
-  const fileName = cover?.attributes?.fileName as string | undefined;
-  if (!fileName) return null;
-  return `https://uploads.mangadex.org/covers/${manga.id}/${fileName}`;
-}
-
-function chapterLabel(attributes: ChapterAttributes): string {
-  const parts: string[] = [];
-  if (attributes.volume) parts.push(`Vol. ${attributes.volume}`);
-  if (attributes.chapter) parts.push(`Ch. ${attributes.chapter}`);
-  const label = parts.join(" · ");
-  if (attributes.title)
-    return label ? `${label} — ${attributes.title}` : attributes.title;
-  return label || "Chapter";
-}
-
-function formatDate(value: string): string {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-async function getJson(
-  path: string,
-  signal: AbortSignal,
-): Promise<{ total?: number; data: unknown[] }> {
-  const res = await fetch(`${API}${path}`, {
-    signal,
-    headers: { Accept: "application/vnd.api+json" },
-  });
-  if (!res.ok) throw new Error(`MangaDex responded with ${res.status}`);
-  return (await res.json()) as { total?: number; data: unknown[] };
-}
-
-async function fetchChapters(signal: AbortSignal): Promise<ChapterData[]> {
-  const chapters: ChapterData[] = [];
-  let offset = 0;
-  for (let page = 0; page < MAX_PAGES; page++) {
-    const query = new URLSearchParams({
-      "groups[]": GROUP_ID,
-      "order[chapter]": "asc",
-      limit: String(CHUNK),
-      offset: String(offset),
-      "includes[]": "manga",
-    });
-    const res = await getJson(`/chapter?${query}`, signal);
-    const data = res.data as ChapterData[];
-    chapters.push(...data);
-    if (res.total == null || chapters.length >= res.total || data.length === 0)
-      break;
-    offset += CHUNK;
-  }
-  return chapters;
-}
-
-async function fetchMangaMeta(
-  ids: string[],
-  signal: AbortSignal,
-): Promise<MangaData[]> {
-  const result: MangaData[] = [];
-  for (let i = 0; i < ids.length; i += CHUNK) {
-    const slice = ids.slice(i, i + CHUNK);
-    const query = new URLSearchParams({
-      limit: String(CHUNK),
-      "includes[]": "cover_art",
-    });
-    slice.forEach((id) => query.append("ids[]", id));
-    const res = await getJson(`/manga?${query}`, signal);
-    result.push(...(res.data as MangaData[]));
-  }
-  return result;
-}
-
 async function load() {
   controller?.abort();
   controller = new AbortController();
@@ -160,50 +37,17 @@ async function load() {
   open.value = {};
 
   try {
-    const chapters = await fetchChapters(signal);
-    if (signal.aborted) return;
-    if (chapters.length === 0) {
+    const res = await fetch("/api/mdx", { signal });
+    if (!res.ok) {
+      throw new Error(res.status === 504 ? "timed out" : `HTTP ${res.status}`);
+    }
+    const payload = (await res.json()) as { manga?: ShowManga[] };
+    const list = payload.manga ?? [];
+
+    if (list.length === 0) {
       state.value = "empty";
       return;
     }
-
-    const byManga = new Map<string, ChapterItem[]>();
-    for (const chapter of chapters) {
-      const mangaId = chapter.relationships.find((r) => r.type === "manga")?.id;
-      if (!mangaId) continue;
-      const item: ChapterItem = {
-        id: chapter.id,
-        label: chapterLabel(chapter.attributes),
-        lang: chapter.attributes.translatedLanguage,
-        date: formatDate(chapter.attributes.publishAt),
-        url:
-          chapter.attributes.externalUrl ??
-          `https://mangadex.org/chapter/${chapter.id}`,
-      };
-      const list = byManga.get(mangaId);
-      if (list) list.push(item);
-      else byManga.set(mangaId, [item]);
-    }
-
-    const metas = await fetchMangaMeta([...byManga.keys()], signal);
-    if (signal.aborted) return;
-    const metaMap = new Map(metas.map((m) => [m.id, m]));
-
-    const list: ShowManga[] = [...byManga.entries()].map(([id, items]) => {
-      const meta = metaMap.get(id);
-      const latest = items.reduce(
-        (acc, item) => (item.date > acc ? item.date : acc),
-        "",
-      );
-      return {
-        id,
-        title: meta ? pickTitle(meta.attributes.title) : "Unknown title",
-        coverUrl: meta ? coverUrl(meta) : null,
-        latestAt: latest,
-        chapters: items,
-      };
-    });
-    list.sort((a, b) => (a.latestAt < b.latestAt ? 1 : -1));
 
     mangaList.value = list;
     if (list.length <= 3) {
