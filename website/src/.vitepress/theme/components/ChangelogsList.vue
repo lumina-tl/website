@@ -1,29 +1,31 @@
 <script setup lang="ts">
-import MarkdownIt from "markdown-it";
-import { data as changelogs } from "../data/changelogs.data";
-import Contributors from "./Contributors.vue";
+import MarkdownIt from 'markdown-it'
+import { useChangelogs } from '../data/changelogs'
+import Contributors from './Contributors.vue'
 
-const md = new MarkdownIt();
+const changelogs = useChangelogs()
+
+const md = new MarkdownIt()
 
 function renderMarkdown(string: string | null | undefined) {
-  const body = string ?? "No changelog provided.";
+  const body = string ?? 'No changelog provided.'
   const flavoredString = body
     .split(/---\r\n\r\n### Checksums|---\r\n\r\nMD5/)[0]
-    .replace(/(?<=\(|(, ))@(.*?)(?=\)|(, ))/g, "[@$2](https://github.com/$2)")
-    .replace(/#(\d+)/g, "[#$1](https://github.com/lumina-tl/lumina/issues/$1)")
-    .replace(/^Check out the .*past release notes.* if you're.*$/m, "")
+    .replace(/(?<=\(|(, ))@(.*?)(?=\)|(, ))/g, '[@$2](https://github.com/$2)')
+    .replace(/#(\d+)/g, '[#$1](https://github.com/lumina-tl/lumina/issues/$1)')
+    .replace(/^Check out the .*past release notes.* if you're.*$/m, '')
     .replace(
       /https:\/\/github.com\/lumina-tl\/lumina\/releases\/tag\/(.*?)/g,
-      "#$1",
+      '#$1',
     )
-    .trim();
+    .trim()
 
-  return md.render(flavoredString);
+  return md.render(flavoredString)
 }
 
-const dateFormatter = new Intl.DateTimeFormat("en", {
-  dateStyle: "medium",
-});
+const dateFormatter = new Intl.DateTimeFormat('en', {
+  dateStyle: 'medium',
+})
 </script>
 
 <template>

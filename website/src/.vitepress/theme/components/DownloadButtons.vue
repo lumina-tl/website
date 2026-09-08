@@ -1,34 +1,38 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import { data as release } from "../data/release.data";
+import { computed, onMounted, ref } from 'vue'
+import { useRelease } from '../data/release'
+
+const release = useRelease()
 
 const version = computed(() =>
-  (release.tag_name ?? "v0.0.0").replace(/^v/, ""),
-);
+  (release.value.tag_name ?? 'v0.0.0').replace(/^v/, ''),
+)
 
 const dmlAsset = computed(() =>
-  (release.assets ?? []).find((a) =>
+  (release.value.assets ?? []).find(a =>
     /^Lumina-Setup-DML-.+\.exe$/i.test(a.name),
   ),
-);
+)
 const cudaAsset = computed(() =>
-  (release.assets ?? []).find((a) =>
+  (release.value.assets ?? []).find(a =>
     /^Lumina-Setup-CUDA-.+\.exe$/i.test(a.name),
   ),
-);
+)
 
 // Lumina currently only ships Windows installers.
-const isWindows = ref(true);
+const isWindows = ref(true)
 
 onMounted(() => {
-  isWindows.value = !!navigator.userAgent.match(/windows/i);
-});
+  isWindows.value = !!navigator.userAgent.match(/windows/i)
+})
 </script>
 
 <template>
   <div>
     <div v-if="!isWindows" class="custom-block danger">
-      <p class="custom-block-title">Unsupported operating system</p>
+      <p class="custom-block-title">
+        Unsupported operating system
+      </p>
       <p>
         <strong>Lumina</strong> currently only ships installers for
         <strong>Windows</strong>. macOS and Linux builds are not available yet.
@@ -78,9 +82,7 @@ onMounted(() => {
       <strong>DirectML</strong> runs on any DirectX 12 GPU and falls back to
       CPU. <strong>CUDA</strong> is NVIDIA-only but noticeably faster on RTX/GTX
       cards. Missing an asset? View the
-      <a :href="release.html_url" target="_blank" rel="noopener"
-        >full release on GitHub</a
-      >.
+      <a :href="release.html_url" target="_blank" rel="noopener">full release on GitHub</a>.
     </p>
   </div>
 </template>
