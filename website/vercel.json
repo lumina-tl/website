@@ -13,6 +13,7 @@
       ]
     }
   ],
+  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/$1.html" }],
   "redirects": [
     { "source": "/download/", "destination": "/downloads/", "permanent": true },
     { "source": "/download", "destination": "/downloads/", "permanent": true },

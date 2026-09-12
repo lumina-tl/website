@@ -1,12 +1,11 @@
 ---
 title: Showcase
-description: See Lumina in action — app screenshots, before/after translations, and recent releases published by the lumina-tl group on MangaDex.
+description: See Lumina in action — app screenshots and before/after translations.
 ---
 
 <script setup>
 import ShowcaseScreenshot from '@theme/components/ShowcaseScreenshot.vue'
 import BeforeAfterSlider from '@theme/components/BeforeAfterSlider.vue'
-import MangaDexFeed from '@theme/components/MangaDexFeed.vue'
 
 const SHOWCASE = 'https://raw.githubusercontent.com/lumina-tl/lumina/main/showcase'
 </script>
@@ -67,11 +66,3 @@ MangaDex.
 Example 3 — inpainting only: text regions were removed and the artwork
 reconstructed, with no typesetting added.
 (Source: [@hiduki_yayoi on X](https://x.com/hiduki_yayoi/status/1645186427712573440/photo/2).)
-
-## Lumina in action on MangaDex
-
-The [lumina-tl](https://mangadex.org/group/c3b19e53-56eb-47a0-8e0c-880e1b91847d/lumina-tl)
-group on MangaDex is used to upload translations made with Lumina. The list
-below is fetched live from the MangaDex API when this page loads.
-
-<MangaDexFeed />
