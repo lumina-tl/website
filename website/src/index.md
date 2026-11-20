@@ -1,5 +1,7 @@
 ---
-title: Home
+title: Lumina — Free Open-Source Manga & Manhwa Translator
+titleTemplate: false
+description: Lumina is a free, open-source desktop app for translating manga, manhwa, and manhua. Local pipeline with text detection, Baberu OCR, AI translation, inpainting, and typesetting.
 layout: home
 
 hero:
@@ -8,7 +10,7 @@ hero:
   tagline: A free, open-source desktop app for translating manga, manhwa, and manhua. Text detection, OCR, translation, inpainting, and typesetting run through a local pipeline — and every step stays editable.
   image:
     src: /sample/translated.png
-    alt: Lumina translation comparison
+    alt: Lumina open-source manga translator comparison preview
   actions:
     - theme: brand
       text: Download for Windows
@@ -20,7 +22,7 @@ hero:
       text: View showcase
       link: /showcase/
 
-customMetaTitle: Lumina — Illuminate every story
+customMetaTitle: Lumina — Free Open-Source Manga & Manhwa Translator
 
 features:
   - title: Semi-automatic pipeline
