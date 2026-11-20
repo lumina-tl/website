@@ -20,7 +20,7 @@ branch version.
 ## The app
 
 <ShowcaseScreenshot
-  :src="`${SHOWCASE}/screenshot.png`"
+  src="/img/screenshot.png"
   alt="The Lumina desktop app with a manga page open in the editor"
 />
 

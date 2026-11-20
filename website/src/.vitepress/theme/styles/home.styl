@@ -1,8 +1,59 @@
 /**
- * Home hero
+ * Home hero with comparison slider
  * --------------------------------------------------------------------------
- * No screenshot is shown in the hero — the home page is text + feature cards
- * only. Keep this file empty so it can be removed together with the import
- * in theme/index.ts when no home-specific styles are needed.
  */
+
+.VPHero.has-image {
+  .container {
+    align-items: center
+  }
+
+  .main {
+    max-width: 560px
+  }
+
+  .image {
+    margin: 0
+    display: flex
+    align-items: center
+    justify-content: center
+  }
+
+  .image-container {
+    width: 100%
+    max-width: 440px
+    height: auto
+    transform: none !important
+  }
+
+  .image-bg {
+    display: none
+  }
+}
+
+@media (max-width: 959px) {
+  .VPHero.has-image {
+    .container {
+      text-align: center
+    }
+
+    .main {
+      order: 1
+      margin: 0 auto
+    }
+
+    .image {
+      order: 2
+      margin-top: 36px
+    }
+
+    .image-container {
+      max-width: 380px
+      height: auto
+      margin: 0 auto
+      transform: none !important
+    }
+  }
+}
+
 

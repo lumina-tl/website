@@ -12,6 +12,7 @@ const sidebar: DefaultTheme.SidebarMulti = {
         { text: "Projects & export", link: "/docs/guides/projects" },
         { text: "Managing models", link: "/docs/guides/models" },
         { text: "Translation settings", link: "/docs/guides/translation" },
+        { text: "Keyboard shortcuts", link: "/docs/guides/shortcuts" },
         { text: "Troubleshooting", link: "/docs/guides/troubleshooting" },
       ],
     },

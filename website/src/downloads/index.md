@@ -20,7 +20,7 @@ backend is included; model files are downloaded on demand from inside the app.
 | Installer                   | Runs on                              | Notes                                                                                                   |
 | --------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
 | **Lumina Setup — DirectML** | Any DirectX 12 GPU, including NVIDIA | Universal choice. Uses DirectML when a compatible GPU is present and falls back to CPU otherwise.       |
-| **Lumina Setup — CUDA**     | NVIDIA GPUs only (RTX/GTX)           | Noticeably faster on NVIDIA hardware. Requires a reasonably recent NVIDIA driver and a larger download. |
+| **Lumina Setup — CUDA**     | NVIDIA GPUs only (RTX/GTX)           | Noticeably faster on NVIDIA hardware. Requires an NVIDIA GPU; downloads the ONNX Runtime once on first run to keep updates small. |
 
 ::: tip Not sure?
 If you have an **NVIDIA RTX/GTX** card, pick the CUDA installer for the best

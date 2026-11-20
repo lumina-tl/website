@@ -23,7 +23,8 @@ In a source checkout, set `LUMINA_MODEL_DIR` in `.env` to keep using the repo's
 Models run as ONNX graphs through ONNX Runtime. The "execution provider" is the
 backend that executes the graph:
 
-- **CUDA** — NVIDIA GPUs (fastest on supported hardware)
+- **CUDA** — NVIDIA GPUs (fastest on supported hardware). For CUDA builds,
+  the ONNX Runtime is installed into the user data folder on first launch.
 - **DirectML** — any DirectX 12 GPU
 - **CPU** — universal fallback
 
@@ -66,9 +67,9 @@ execution providers, and licensing notes.
 
 ## Can I use a local LLM for translation?
 
-Yes. The **Custom** provider works with any OpenAI- or Anthropic-compatible
-endpoint — including local servers like Ollama, LM Studio, or vLLM — by
-pointing Lumina at your own base URL. No text then leaves your machine.
+Yes. The **Custom** provider works with any OpenAI-compatible endpoint
+(`/v1/chat/completions`) — including local servers like Ollama, LM Studio, or
+vLLM — by pointing Lumina at your own base URL. No text then leaves your machine.
 
 ## How do I run Lumina from a source checkout?
 

@@ -6,6 +6,9 @@ hero:
   name: Lumina
   text: Illuminate every story
   tagline: A free, open-source desktop app for translating manga, manhwa, and manhua. Text detection, OCR, translation, inpainting, and typesetting run through a local pipeline — and every step stays editable.
+  image:
+    src: /sample/translated.png
+    alt: Lumina translation comparison
   actions:
     - theme: brand
       text: Download for Windows
@@ -13,6 +16,9 @@ hero:
     - theme: alt
       text: Get started
       link: /docs/guides/getting-started
+    - theme: alt
+      text: View showcase
+      link: /showcase/
 
 customMetaTitle: Lumina — Illuminate every story
 
@@ -33,7 +39,7 @@ features:
     link: /docs/guides/workflow
     linkText: See editing tools
   - title: One-file projects
-    details: Save a whole project — pages, masks, layers, and typography — into a single .lmi file, and export polished PNG or JPG pages in any order.
+    details: Save a whole project — pages, masks, layers, and typography — into a single .lmi file, and export polished PNG, JPG, PDF, or PSD pages in any order.
     icon: <svg height="24" width="24" viewBox="0 0 24 24" fill="none" stroke="var(--vp-c-green-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M13.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v11.5"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 12v-1"/><path d="M8 18v-2"/><path d="M8 7V6"/><circle cx="8" cy="20" r="2"/></svg>
     link: /docs/guides/projects
     linkText: Read about .lmi files

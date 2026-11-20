@@ -12,11 +12,13 @@ description: Frequently asked questions about installing and updating Lumina.
   you don't have an NVIDIA RTX/GTX card.
 - **Lumina Setup — CUDA** is NVIDIA-only and **highly recommended over the
   DirectML installer if you have an NVIDIA RTX/GTX card** — it's noticeably
-  faster. It requires a reasonably recent NVIDIA driver and is a larger
-  download.
+  faster. It requires a reasonably recent NVIDIA driver. Starting with v0.3.0,
+  the CUDA installer downloads the ~1.4 GB ONNX Runtime once on first launch
+  into your user directory, keeping the installer download small and future
+  differential updates lightweight.
 
-Both installers bundle the app and its Python backend, so no separate runtime
-installation is needed.
+Both installers configure the app and its Python backend automatically, so no
+manual backend or Python installation is required.
 
 ## What are the system requirements?
 
@@ -51,7 +53,8 @@ you override it with `LUMINA_MODEL_DIR` for the models folder.
 
 ## Do I need to install Python or ONNX Runtime myself?
 
-No. The Python backend and ONNX Runtime are bundled with the installer and
-started automatically by the app. See the
+No. The Python backend is managed entirely by the app. The DirectML installer
+pre-bundles its execution provider, while the CUDA installer automatically
+downloads and verifies the CUDA ONNX Runtime on your first launch. See the
 [Technical FAQ](/docs/faq/technical) if you want to run from a source checkout
 instead.

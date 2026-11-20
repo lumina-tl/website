@@ -2,8 +2,9 @@
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
+import HeroCompareSlider from './components/HeroCompareSlider.vue'
 
-const { isDark } = useData()
+const { isDark, frontmatter } = useData()
 
 function shouldEnableTransitions() {
   return 'startViewTransition' in document
@@ -42,7 +43,11 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 </script>
 
 <template>
-  <DefaultTheme.Layout />
+  <DefaultTheme.Layout>
+    <template #home-hero-image>
+      <HeroCompareSlider v-if="frontmatter.layout === 'home'" />
+    </template>
+  </DefaultTheme.Layout>
 </template>
 
 <style lang="stylus">

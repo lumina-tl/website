@@ -35,10 +35,15 @@ Make sure you installed the **CUDA build** (not the DirectML build) and that
 your NVIDIA driver is reasonably recent. If in doubt, the DirectML installer is
 the universal fallback and will run on any DirectX 12 GPU.
 
-**Out of memory during inpainting or OCR.**
-Some models are memory-hungry. Try switching that model to a lighter
-alternative (for example `lama_manga` instead of `paddleocr_vl`), or close
-other applications while running heavy stages.
+**Out of memory or GPU VRAM exhaustion.**
+- Inspect the live **System Resources** chip in the status bar to verify current
+  RAM and GPU VRAM usage.
+- Click the chip and click **Unload Models** to purge idle model weights and
+  sessions from memory.
+- For text detection, ensure `rfdetr_seg` is updated to the latest FP16 weights
+  (~3.2 GB VRAM instead of the older 5.9 GB requirement).
+- Uninstall unused models using the **Delete** button in **Settings → Models**
+  to reclaim disk space and memory headroom.
 
 ## Translation
 
@@ -47,9 +52,11 @@ Re-enter the API key in **Settings → Translation**. Keys are stored encrypted;
 if you reinstalled or changed user profiles the vault entry may be gone.
 
 **Custom provider returns errors.**
-Check the base URL, model id, and that the endpoint is reachable from your
-machine. For Anthropic-compatible endpoints, enable the "Anthropic style"
-switch.
+Check the base URL, model name, and verify that the endpoint is reachable from
+your computer. Custom providers must adhere to the standard OpenAI
+`/v1/chat/completions` protocol (e.g. `http://localhost:11434/v1` for Ollama or
+`http://localhost:1234/v1` for LM Studio). The deprecated Anthropic client has
+been removed.
 
 **Translation is empty or obviously wrong.**
 Try another provider/model, or review the instruction/style field. Translating
