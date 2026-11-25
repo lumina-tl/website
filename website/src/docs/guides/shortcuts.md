@@ -24,6 +24,11 @@ and project management. All shortcuts can be customized from
 | <kbd>[</kbd> | Brush size down | Decrease active brush size by 1px |
 | <kbd>]</kbd> | Brush size up | Increase active brush size by 1px |
 
+::: info Nightly
+In **Nightly** builds, press <kbd>P</kbd> to switch to the **Pen** tool for
+creating Bezier selections or editable vector shape layers.
+:::
+
 ## Navigation and zoom
 
 | Shortcut | Action | Description |
@@ -31,6 +36,8 @@ and project management. All shortcuts can be customized from
 | <kbd>Ctrl</kbd> + <kbd>=</kbd> | Zoom in | Enlarge the active canvas view |
 | <kbd>Ctrl</kbd> + <kbd>-</kbd> | Zoom out | Reduce the active canvas view |
 | <kbd>Ctrl</kbd> + <kbd>0</kbd> | Fit to screen | Reset zoom and center the page in the viewport |
+| <kbd>Shift</kbd> + Scroll | Pan horizontally | Scroll the canvas left or right |
+| <kbd>Alt</kbd> + Scroll | Pan vertically | Scroll the canvas up or down |
 
 ## Project and history
 

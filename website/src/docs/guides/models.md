@@ -41,14 +41,19 @@ Lumina includes active resource tracking to prevent system slowdowns and out-of-
 - **Automatic memory management:** Lumina monitors native memory pressure and
   uses LRU eviction to cycle out inactive models when headroom runs low.
 
+::: info Nightly
+In **Nightly** builds, each active model tag in the resource monitor popover
+also includes a remove button to unload models individually.
+:::
+
 ## Where models are stored
 
 The models directory is resolved in this order:
 
 1. The `LUMINA_MODEL_DIR` environment variable.
 2. The location you saved in **Settings → Models** ("Models directory" card).
-3. The platform default: `userData/models` — on Windows,
-   `%APPDATA%\Lumina\models`.
+3. The platform default: `userData/models` — `%APPDATA%\Lumina\models` on
+   Windows, `~/.config/lumina/models` on Linux.
 
 In a source checkout you can set `LUMINA_MODEL_DIR` in `.env` (see
 `.env.example` in the repository) to keep using the repo's `models/` folder.
@@ -62,7 +67,7 @@ model id — for example `anglenet/` for the AngleNet model.
 | -------- | -------------- | --------------- | -------------------------------- |
 | Detect   | `rtdetr`       | Ready (default) | CUDA / DirectML / CPU            |
 | Detect   | `rfdetr_seg`   | Ready           | CUDA / DirectML / CPU            |
-| OCR      | `manga-ocr`    | Ready           | CUDA / DirectML (decoder on CPU) |
+| OCR      | `manga_ocr`    | Ready           | CUDA / DirectML (decoder on CPU) |
 | OCR      | `baberu`       | Ready (default) | CUDA / DirectML (decoder on CPU) |
 | OCR      | `ppocrv6`      | Ready           | CUDA / DirectML / CPU            |
 | OCR      | `paddleocr_vl` | In development  | CUDA or CPU (no DirectML)        |
@@ -95,12 +100,15 @@ rough edges.
 Every model runs through ONNX Runtime, and you control the **execution
 provider** per model. In short:
 
-- **CUDA** — NVIDIA GPUs, fastest when available. Starting with v0.3.0, the
-  CUDA runtime (~1.4 GB) is downloaded once on initial launch to your user folder
-  and verified automatically.
-- **DirectML** — any DirectX 12 GPU. DirectML runtimes come pre-bundled with
-  the DirectML installer.
-- **CPU** — always works; slower on heavy models.
+- **CUDA** — NVIDIA GPUs, fastest when available. CUDA builds download and
+  verify the platform runtime archive (`cuda-runtime-win.7z` or
+  `cuda-runtime-linux.tar.gz`) once on initial launch with a live extraction
+  progress bar.
+- **DirectML** — any DirectX 12 GPU (Windows DirectML installer). DirectML
+  runtimes come pre-bundled.
+- **CPU** — always works (including the universal Linux CPU AppImage); slower
+  on heavy models.
 
-CUDA acceleration requires the CUDA-enabled installer and an NVIDIA driver.
+CUDA acceleration requires the CUDA build (Windows installer or Linux CUDA
+AppImage) and an NVIDIA driver.
 See the [Technical FAQ](/docs/faq/technical) for details.

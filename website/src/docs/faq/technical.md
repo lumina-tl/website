@@ -12,7 +12,7 @@ The models directory is resolved in this order:
 1. The `LUMINA_MODEL_DIR` environment variable.
 2. The location saved in **Settings → Models**.
 3. The platform default `userData/models` —
-   `%APPDATA%\Lumina\models` on Windows.
+   `%APPDATA%\Lumina\models` on Windows, `~/.config/lumina/models` on Linux.
 
 Each model lives in a subfolder named after its id (for example `anglenet/`).
 In a source checkout, set `LUMINA_MODEL_DIR` in `.env` to keep using the repo's
@@ -28,9 +28,10 @@ backend that executes the graph:
 - **DirectML** — any DirectX 12 GPU
 - **CPU** — universal fallback
 
-You can choose the provider per model. The installer you use determines which
-providers are available: the CUDA build ships CUDA support; the DirectML build
-ships DirectML + CPU.
+You can choose the provider per model. The build you use determines which
+providers are available: CUDA builds (Windows installer or Linux CUDA
+AppImage) ship CUDA support; the Windows DirectML build ships DirectML + CPU;
+the Linux CPU AppImage ships CPU execution.
 
 ## Does Lumina run a server?
 
@@ -43,8 +44,8 @@ it is not exposed to the network.
 
 A `.lmi` file is a zip archive containing:
 
-- `project.json` — manifest with page list, detections, layers, typography,
-  and non-secret translation settings
+- `project.json` — manifest with page list, detections, rich text spans,
+  layers, typography, and non-secret translation settings
 - copies of the source page images
 - inpaint mask patches (PNG)
 
@@ -75,5 +76,6 @@ vLLM — by pointing Lumina at your own base URL. No text then leaves your machi
 
 See the **Development** section of the
 [README](https://github.com/lumina-tl/lumina#readme): set up a Python 3.13
-virtual environment, install the backend requirements, then build and start
-the Electron app. A GPU execution provider is optional for development.
+(Windows) or Python 3.12 (Linux) virtual environment, install the backend
+requirements, then build and start the Electron app. A GPU execution provider
+is optional for development.

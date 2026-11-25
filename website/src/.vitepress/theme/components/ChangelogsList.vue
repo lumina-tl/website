@@ -32,7 +32,7 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
   <div v-for="(release, index) of changelogs" :key="release.tag_name">
     <h2 :id="index === 0 ? 'latest' : release.tag_name">
       <a :href="release.html_url" target="_blank">
-        {{ release.tag_name.substring(1) }}
+        {{ release.tag_name.replace(/^v/, '') }}
       </a>
       <Badge v-if="index === 0" type="tip" text="Latest" />
       <a

@@ -68,6 +68,9 @@ casual translation.
 - **Dynamic variables:** Insert `{{target_language}}` and `{{previous_line}}`
   chips into your custom instruction prompt so the AI retains narrative
   continuity and naming consistency across consecutive bubbles.
+- **Context-aware translation:** Single-layer re-translation supplies full-page
+  dialogue context to the LLM, and cross-page context carries trailing dialogue
+  lines across page boundaries for consistent tone.
 - **Quick actions:** Use **Reset to Default** to restore the standard comic
   prompt or **Clear** to start from a blank instruction.
 

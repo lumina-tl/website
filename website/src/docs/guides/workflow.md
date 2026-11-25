@@ -17,8 +17,8 @@ Import → Detect → OCR → Translate → Inpaint → Typeset → Export
 ## The pipeline bar and presets
 
 Lumina features a floating draggable pipeline pill with inline model selectors
-and stage triggers. You can trigger each stage individually or use the
-**Run All** split button:
+and stage triggers with real-time streaming progress per box and per patch. You
+can trigger each stage individually or use the **Run All** split button:
 
 - **Full Pipeline** — executes detection, OCR, translation, inpainting, and
   typesetting sequentially.
@@ -43,7 +43,9 @@ unnecessary compute:
 **Editing:** Use the **Select** (<kbd>V</kbd>), **Rectangle** (<kbd>R</kbd>), or
 **Lasso** (<kbd>L</kbd>) tools to draw, adjust, or delete bounding boxes. Hold
 <kbd>Shift</kbd> to merge or add to a selection, and <kbd>Alt</kbd> to subtract.
-Edited boxes sync directly with OCR crop coordinates.
+Canvas and layer multi-selection lets you marquee-select, transform multiple
+nodes together, apply batch typography updates, or bulk-delete layers. Edited
+boxes sync directly with OCR crop coordinates.
 
 ## 2. OCR
 
@@ -70,6 +72,9 @@ stages run completely offline.
 - System instructions can be customized with template variables
   `{{target_language}}` and `{{previous_line}}` to maintain narrative tone and
   character voice consistency.
+- **Context-aware translation:** Re-translating a single line supplies the full
+  page's dialogue context to the LLM, and cross-page context carries trailing
+  dialogue lines across page boundaries.
 - Bidirectional layer IDs ensure translations stay mapped to the correct bubbles
   even if layers or pages are reordered.
 
@@ -97,20 +102,50 @@ Typesetting renders translated text back onto the canvas:
 
 - Automatic text **color** and **angle** detection (powered by `anglenet`, with
   a PCA heuristic fallback).
+- **Auto-expand vertical text boxes:** Narrow vertical detection boxes
+  automatically reflow into horizontal bubble proportions upon translation.
 - **Auto-fit fonts** that scale text to fit snugly inside bounding boundaries.
+- **Rich text & floating formatting toolbar:** Character-level formatting
+  (multi-color, multi-font, weight, italic) via a floating toolbar anchored
+  above the active text box, with full undo/redo and PSD export support.
+- **Font Market & Recommendations:** Built-in catalog with 47 curated manga
+  fonts (*Dialogue*, *Scream*, *Whisper*, *SFX*) and live search across 1,960+
+  Google Fonts, supporting one-click in-app or user-space installation on
+  Windows and Linux with instant glyph previews.
 - Per-layer typography controls: font family, font size, stroke, alignment,
   line height, letter spacing, and rotation.
 - **In-place text editing:** Double-click any layer in the sidebar or any text
   node on the canvas to open the rotating inline editor. Press <kbd>Escape</kbd>
   to discard edits safely.
 
-## Page navigation and resource management
+## Canvas navigation, layers, and resource management
 
+- **Interactive canvas scrollbars:** Adaptive-contrast horizontal and vertical
+  scrollbars with pan shortcuts (<kbd>Alt</kbd> / <kbd>Shift</kbd> + Scroll).
 - **Bottom page strip:** Drag and drop page thumbnails to reorder pages with
   a real-time insertion indicator.
 - **Resource monitor:** Check live CPU load, system RAM, GPU VRAM (via NVIDIA
   NVML), and active loaded models directly in the status bar chip. Click the chip
   to open a breakdown modal and purge idle model memory with **Unload Models**.
+
+::: info Nightly
+The following features are currently available on the **Nightly** channel:
+
+- **Pen tool with vector shapes (<kbd>P</kbd>):** Bezier pen tool for creating
+  selections or editable vector shape layers with fill, stroke, and direct
+  anchor/handle editing.
+- **Text behind objects:** Cut out foreground objects from selections so text
+  layers sit behind artwork.
+- **Layer locking:** Lock/unlock toggle per layer to prevent accidental
+  selection, movement, editing, or deletion.
+- **Movable text format bar:** Draggable, flippable formatting bar that
+  auto-hides while typing.
+- **Adaptive cursors & selection auto-scroll:** Paint, selection, and pen
+  cursors invert automatically against bright backgrounds, and dragging
+  lasso/rectangle selections near canvas edges auto-pans the viewport.
+- **Individual model unloading:** Remove button on each active model tag in the
+  resource monitor popover.
+:::
 
 ## Export
 

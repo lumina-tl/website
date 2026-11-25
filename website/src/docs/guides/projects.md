@@ -15,8 +15,8 @@ Use **Save** (<kbd>Ctrl</kbd> + <kbd>S</kbd>) or **Save As**
 create a `.lmi` file. A `.lmi` file is a **zip archive** that contains:
 
 - `project.json` — the manifest: page list, active page, text detections,
-  layers, typography, and a non-secret subset of the translation settings
-  (provider, target language, model/style choices).
+  rich text spans, layers, typography, and a non-secret subset of the
+  translation settings (provider, target language, model/style choices).
 - Every page's **source image** (copies, so the project is self-contained).
 - Every **inpaint mask patch** (the PNGs Lumina uses to erase text).
 
@@ -65,6 +65,7 @@ or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> for all pages):
    - **PDF** — Combines and compiles rendered pages in project sequence into
      a single PDF document.
    - **Save as PSD** (preview feature) — Exports pages as Photoshop documents
-     with separated layers and editable typography.
+     with separated layers and editable rich text typography (including
+     multi-color and multi-font spans).
 3. **Select destination:** Pick destination folder and export. Real-time export
    progress displays in the header and status notifications.

@@ -33,9 +33,9 @@ is restricted to academic, non-commercial research use).
 
 ## Which platforms does Lumina support?
 
-Currently **Windows only**. Lumina ships two Windows installers (DirectML and
-CUDA). macOS and Linux builds are not available yet — see the
-[Installation FAQ](/docs/faq/install).
+Lumina supports **Windows** (DirectML and CUDA installers) and **Linux**
+(CPU and CUDA AppImages with Wayland and X11 auto-detection). macOS builds are
+not available yet — see the [Installation FAQ](/docs/faq/install).
 
 ## Does Lumina need an internet connection?
 

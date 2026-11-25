@@ -4,14 +4,14 @@ const softwareSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Lumina",
-  operatingSystem: "Windows 10, Windows 11",
+  operatingSystem: "Windows 10, Windows 11, Linux",
   applicationCategory: "UtilitiesApplication",
   applicationSubCategory: "Manga Translator",
   description:
     "Free, open-source desktop app for translating manga, manhwa, and manhua with local detection, OCR, inpainting, and typesetting.",
   url: "https://lumina.navierr.dev",
   downloadUrl: "https://lumina.navierr.dev/downloads/",
-  softwareVersion: "0.5.0",
+  softwareVersion: "0.6.0",
   license: "https://github.com/lumina-tl/lumina/blob/main/LICENSE",
   offers: {
     "@type": "Offer",

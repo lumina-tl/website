@@ -5,24 +5,42 @@ description: Frequently asked questions about installing and updating Lumina.
 
 # Installation FAQ
 
-## Which installer should I download?
+## Which build should I download?
+
+### Windows
 
 - **Lumina Setup — DirectML** runs on any DirectX 12 GPU — including NVIDIA —
   and falls back to CPU on machines without a compatible GPU. Choose this if
   you don't have an NVIDIA RTX/GTX card.
 - **Lumina Setup — CUDA** is NVIDIA-only and **highly recommended over the
   DirectML installer if you have an NVIDIA RTX/GTX card** — it's noticeably
-  faster. It requires a reasonably recent NVIDIA driver. Starting with v0.3.0,
-  the CUDA installer downloads the ~1.4 GB ONNX Runtime once on first launch
-  into your user directory, keeping the installer download small and future
-  differential updates lightweight.
+  faster. It requires a reasonably recent NVIDIA driver.
 
-Both installers configure the app and its Python backend automatically, so no
-manual backend or Python installation is required.
+### Linux
+
+- **Lumina AppImage — CPU** is a universal `x86_64` AppImage using ONNX
+  Runtime CPU, with Wayland and X11 auto-detection.
+- **Lumina AppImage — CUDA** targets `x86_64` Linux systems with proprietary
+  NVIDIA drivers for CUDA 12 acceleration.
+
+To integrate the AppImage into your desktop environment (launcher shortcuts,
+icons, and `.lmi` file associations), run:
+
+```sh
+bash scripts/install-linux-appimage.sh /path/to/Lumina-*.AppImage
+```
+
+Both Windows and Linux packages configure the app and its Python backend
+automatically, so no manual backend or Python installation is required. CUDA
+builds download and verify the platform ONNX Runtime archive
+(`cuda-runtime-win.7z` or `cuda-runtime-linux.tar.gz`) once on first launch
+with a live extraction progress bar, keeping initial downloads small and
+updates differential.
 
 ## What are the system requirements?
 
-- 64-bit Windows (10 or newer is recommended)
+- 64-bit **Windows** (10 or newer recommended) or 64-bit **Linux** (`x86_64`,
+  Wayland or X11)
 - A GPU is optional — CPU-only machines work, just slower
 - Free disk space for the app and any models you download (some models exceed
   1 GB)
@@ -37,13 +55,20 @@ No. Models are downloaded on demand from inside the app
 ## How do I update Lumina?
 
 Lumina checks for new releases on GitHub and can download and install them
-from inside the app. You can also grab the latest installer from the
+from inside the app. Both Windows installers support differential auto-updates
+via their respective channels (`dml` or `cuda`). You can also grab the latest
+package from the
 [releases page](https://github.com/lumina-tl/lumina/releases) at any time.
 
-## Is Lumina available for macOS or Linux?
+::: info Nightly
+In **Nightly** builds, **Settings → General** adds a **Stable / Nightly**
+update channel selector along with a visible installation progress bar.
+:::
 
-Not yet. The current installers target Windows only. There is no published
-timeline for other platforms — follow the repository for announcements.
+## Is Lumina available for macOS?
+
+Not yet. Current builds target Windows and Linux. There is no published
+timeline for macOS — follow the repository for announcements.
 
 ## Can I run two Lumina installs side by side?
 
@@ -53,8 +78,8 @@ you override it with `LUMINA_MODEL_DIR` for the models folder.
 
 ## Do I need to install Python or ONNX Runtime myself?
 
-No. The Python backend is managed entirely by the app. The DirectML installer
-pre-bundles its execution provider, while the CUDA installer automatically
-downloads and verifies the CUDA ONNX Runtime on your first launch. See the
-[Technical FAQ](/docs/faq/technical) if you want to run from a source checkout
-instead.
+No. The Python backend is managed entirely by the app. The Windows DirectML
+installer and Linux CPU AppImage pre-bundle their execution provider, while
+CUDA builds automatically download and verify the CUDA ONNX Runtime on your
+first launch. See the [Technical FAQ](/docs/faq/technical) if you want to run
+from a source checkout instead.

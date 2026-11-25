@@ -53,8 +53,9 @@ export function useChangelogs() {
         if (data.length < 100) break;
         page++;
       }
-      changelogs.value = all;
-      setCache(all);
+      const filtered = all.filter((r) => /^v\d+\.\d+\.\d+/.test(r.tag_name));
+      changelogs.value = filtered;
+      setCache(filtered);
     } catch (err) {
       console.error("Failed to fetch changelogs:", err);
     }

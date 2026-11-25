@@ -13,7 +13,7 @@ hero:
     alt: Lumina open-source manga translator comparison preview
   actions:
     - theme: brand
-      text: Download for Windows
+      text: Download
       link: /downloads/
     - theme: alt
       text: Get started

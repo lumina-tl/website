@@ -19,7 +19,8 @@ can be resumed by retrying.
 
 **A model never shows as ready after downloading.**
 Verify the models directory location under **Settings → Models** and confirm
-the files landed in the per-model subfolder (e.g. `%APPDATA%\Lumina\models`).
+the files landed in the per-model subfolder (e.g. `%APPDATA%\Lumina\models` on
+Windows or `~/.config/lumina/models` on Linux).
 You can also place model files manually there.
 
 ## Performance and GPU
@@ -31,9 +32,10 @@ that the execution provider is set per model in the settings, and consider the
 CUDA installer if you have an NVIDIA card.
 
 **CUDA errors or "provider not available".**
-Make sure you installed the **CUDA build** (not the DirectML build) and that
-your NVIDIA driver is reasonably recent. If in doubt, the DirectML installer is
-the universal fallback and will run on any DirectX 12 GPU.
+Make sure you installed the **CUDA build** (Windows CUDA installer or Linux CUDA
+AppImage, not DirectML/CPU) and that your NVIDIA driver is reasonably recent. If
+in doubt, the DirectML installer (Windows) or CPU AppImage (Linux) is the
+universal fallback.
 
 **Out of memory or GPU VRAM exhaustion.**
 - Inspect the live **System Resources** chip in the status bar to verify current
